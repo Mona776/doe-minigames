@@ -1,0 +1,47 @@
+Use case: ui-mockup.
+Create ONE complete visual design sheet for ONLY the game "贪吃腊肠", a simple clockwise-turn Snake minigame on a 240×240 pet-device display.
+
+INPUT REFERENCE: the attached montage is an ACTUAL CURRENT DEVICE/SIMULATOR screenshot. Use it as a strong reference for limited color palette, darkness, true chunky pixel density, simple dog sprite, field layout and small-screen constraints. It is NOT an edit target; create a NEW, modestly refined coherent UI design. The reference has overly verbose placeholder text and crude controls; improve those deliberately. DO NOT use the previous fancy garden/flower illustrations or light cyan UI. The requested change is modest polish of this existing retro device style, NOT turning it into a high-resolution illustrated RPG.
+
+ART DIRECTION:
+Authentic coarse-pixel handheld game UI, restrained and functional, 1x underlying pixel grid 240×240, render all panels at an identical integer enlargement. Large clearly visible pixel blocks; every icon and glyph constructed of simple crisp square pixels. No anti-aliasing, no thin high-res detailed typography, no vector-smooth curves. Very limited color palette: near-black charcoal #15161C, panel #1F212A, grid #262935, muted moss #4A6B3A, main sage outline #9CC36B, lime #C9F25B, warm amber #F5C242, cream #EFE6CF, muted gray #9C968A, restrained red #E0474C; the dog is simple warm brown #C08552 with dark brown ears #8A5530, gray rocks. Flat fills, tiny 1px/2px bevel/shadow at most. A discrete 1px inset green screen edge; no plastic device mockup, no ornate casing. No glossy gradients, no ornamental flowers, no landscape illustration, no bright blue-white UI. Light scanline feel can be extremely subtle, never obscure pixel readability.
+
+DELIVERABLE COMPOSITION:
+A carefully typeset OFF-WHITE presentation board, 3 columns × 3 rows of NINE exact SQUARE screens, each representing a 240×240 full screen. The nine square screen views must have matching dimensions, no aspect-ratio stretching. Small accurate Chinese captions OUTSIDE each screen in the gutter. A compact component strip below the nine screens with individual button states, HUD pieces and tiny icons. Short board heading "贪吃腊肠 · 复古像素 UI". This must feel like a practical executable UI art specification board rather than a marketing illustration or a wireframe. Fully designed panels, no empty placeholders or dashed rectangles.
+
+IN-GAME CONTEXT IN EVERY RELEVANT PANEL:
+Retain a very quiet 10×10 grid occupying a full 200×200 pixel area, approximately x20 y30. Top HUD has just stage, bone-progress, best score. Keep it compact; do NOT steal grid space with a large decorative header or bottom toolbar during gameplay.
+The same simple brown side-profile long dachshund as the reference is drawn as a thin body bending along grid cells; exactly one head, one tail, FOUR short legs total with front pair near head and rear pair near tail. Not a generic green snake, not a large realistic dog. Body can get longer but never gains extra legs. Bone food is a small cream pixel bone. Obstacles gray simple rock tiles in short lines. An amber small direction arrow near the head is the next-move preview, not an inventory item. Gameplay art is minimal supporting context; UI is the deliverable.
+
+NINE SCREENS (left-to-right, top-to-bottom):
+1. ENTRY / TITLE. Exact title "贪吃腊肠" in a clean chunky amber pixel title. One tiny long-dog emblem, a compact best-score chip with trophy icon and "最高 11". A focused amber bracketed row "开始游戏"; a secondary row "玩法说明". Bottom tiny hardware-key badges: B for confirm, C for back. A pleasing balanced layout using the dark screen, not a page of text. No new upgrade/settings mechanics.
+
+2. COUNTDOWN. Quiet real board and start-position dog visible; no normal HUD. Large centered amber pixel numeral "3" with 1px dark shadow. Very small stage flag "第1关" above it. Subtle graphic "3→2→1" treatment optional, no long help strings covering half the board. Space and clarity.
+
+3. GAMEPLAY. Top HUD: small amber stage badge "02", bone icon with "3/5", tiny trophy "11". Occupy only the thin top band. Show 10×10 low-contrast grid, brown dog along an L-shaped run, one bone, two short rock segments, tiny amber next-direction arrow. No paragraph of controls, no large floating modal.
+
+4. PAUSED. Frozen gameplay board darkened slightly. A compact centered charcoal panel with clean 2px moss outline and angular cut corners. Small pause-bars icon, title "暂停". Two clear physical-key selectable rows: highlighted "继续游戏", unselected "退出游戏". Selection uses amber fill or corner brackets and a small pixel pointer, not mobile touch styling. Bottom tiny A change / B confirm badges; text can be only "A 选择  B 确定".
+
+5. EXIT CONFIRM. Same panel system over frozen board. Title "离开本局?". A compact crossed-out shell icon with short "无奖励" communicates no reward. Highlighted "继续游戏"; secondary "确认退出". Small C back badge. Minimal words, clear hierarchy, not a generic desktop dialog.
+
+6. STAGE COMPLETE. Same pixel board frozen in background. Amber heading "第1关完成". A row of FIVE cream bone indicators all lit. Small right arrow into badge "02" and gray-rock icon to preview next stage. Thin small transition-progress strip along bottom. AUTOMATIC next stage, no actionable next-stage button or key prompt. No added levels beyond three.
+
+7. LOSS / ZERO STARS RESULT. Compact balanced results panel. Title "撞墙了" with small red impact icon, three visibly HOLLOW stars. Bone icon "03", subdued best trophy "11". Reward shell icon "+5". Bottom choices highlighted "再来" and secondary "返回". Use the same panel system, readable simple icon-first score. No spirit value shown.
+
+8. PARTIAL RESULT / ONE STAR. Title "挑战结束", three stars with exactly ONE filled amber star and TWO hollow. Small stage progression "01" complete and "02" failed using checks/crosses or simple filled/unfilled stage flags. Bone icon total "08". Shell icon "+10". "再来" and "返回". This is a run ended in stage 2 after clearing stage 1, not full victory.
+
+9. FULL CLEAR / THREE STARS. Title "全部通关", exactly THREE filled amber pixel stars, bone icon "15", small NEW/best trophy flag. Shell icon "+30". Highlighted "再来", secondary "返回". Very restrained 4 or 5 pixel sparkles, not overflowing confetti. Success feels rewarding but still like the same simple retro device.
+
+COMPONENT STRIP BELOW:
+Give enough breathing room, organize small labeled groups. Exact short outside labels:
+"信息栏": standalone stage badge "02", bone progress "3/5", trophy high score "11".
+"按钮": side-by-side same-sized normal outlined "继续" and amber focused "继续", with a small selection pointer.
+"图标": bone (filled/empty), trophy, four direction arrows, pause bars, gray rock, shell.
+"星级": 0, 1, 2, 3 filled-star groups with clear filled versus hollow states.
+"倒计时": small 3,2,1 glyph samples.
+All components same coarse pixel scale as the screens, clean flat fills, no microdetails. Labels outside screens should be visually distinct from in-game UI.
+
+FUNCTIONAL INVARIANTS:
+Only this Snake game. Physical controls A selection/pause, B clockwise turn/confirm, C return. Three consecutive B presses before a move give a left turn; no D-pad or on-screen steering joystick. Each stage eats 5 bones then automatically advances, third-stage completion wins, max total15. Rewards: zero stages cleared=0 stars shell+5; clear1stage=1star shell+10; clear2=2stars shell+20; clear3=3stars shell+30. No health hearts, stamina, currency shop, countdown timeout or Snake timer. Keep reward shell distinct from a coin.
+
+Make the board visually polished with strong graphic hierarchy and consistent design, but the game screens must stay as SIMPLE, COARSE, LOW-COLOR and IMPLEMENTABLE as the provided actual device screenshot. Do not decorate empty grid space. No mockup placeholder words, no high-definition garden, no white-brown cute illustration from earlier concepts.

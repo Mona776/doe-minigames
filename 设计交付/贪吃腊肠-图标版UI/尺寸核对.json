@@ -1,0 +1,74 @@
+[
+  {
+    "screen": "01-entry",
+    "size": [
+      1254,
+      1254
+    ],
+    "aspect": "1:1"
+  },
+  {
+    "screen": "02-help",
+    "size": [
+      1254,
+      1254
+    ],
+    "aspect": "1:1"
+  },
+  {
+    "screen": "03-countdown",
+    "size": [
+      1254,
+      1254
+    ],
+    "aspect": "1:1"
+  },
+  {
+    "screen": "04-gameplay",
+    "size": [
+      1254,
+      1254
+    ],
+    "aspect": "1:1"
+  },
+  {
+    "screen": "05-pause",
+    "size": [
+      1254,
+      1254
+    ],
+    "aspect": "1:1"
+  },
+  {
+    "screen": "06-exit",
+    "size": [
+      1254,
+      1254
+    ],
+    "aspect": "1:1"
+  },
+  {
+    "screen": "07-stage",
+    "size": [
+      1254,
+      1254
+    ],
+    "aspect": "1:1"
+  },
+  {
+    "screen": "08-loss",
+    "size": [
+      1254,
+      1254
+    ],
+    "aspect": "1:1"
+  },
+  {
+    "screen": "09-clear",
+    "size": [
+      1254,
+      1254
+    ],
+    "aspect": "1:1"
+  }
+]

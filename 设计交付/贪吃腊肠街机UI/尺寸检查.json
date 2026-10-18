@@ -1,0 +1,110 @@
+[
+  {
+    "screen": "入口",
+    "sourceSize": [
+      1254,
+      1254
+    ],
+    "displaySize": [
+      300,
+      300
+    ],
+    "aspectRatio": "1:1"
+  },
+  {
+    "screen": "倒计时",
+    "sourceSize": [
+      1254,
+      1254
+    ],
+    "displaySize": [
+      300,
+      300
+    ],
+    "aspectRatio": "1:1"
+  },
+  {
+    "screen": "局内",
+    "sourceSize": [
+      1254,
+      1254
+    ],
+    "displaySize": [
+      300,
+      300
+    ],
+    "aspectRatio": "1:1"
+  },
+  {
+    "screen": "暂停",
+    "sourceSize": [
+      1254,
+      1254
+    ],
+    "displaySize": [
+      300,
+      300
+    ],
+    "aspectRatio": "1:1"
+  },
+  {
+    "screen": "退出确认",
+    "sourceSize": [
+      1254,
+      1254
+    ],
+    "displaySize": [
+      300,
+      300
+    ],
+    "aspectRatio": "1:1"
+  },
+  {
+    "screen": "换关",
+    "sourceSize": [
+      1254,
+      1254
+    ],
+    "displaySize": [
+      300,
+      300
+    ],
+    "aspectRatio": "1:1"
+  },
+  {
+    "screen": "失败结算",
+    "sourceSize": [
+      1254,
+      1254
+    ],
+    "displaySize": [
+      300,
+      300
+    ],
+    "aspectRatio": "1:1"
+  },
+  {
+    "screen": "部分过关",
+    "sourceSize": [
+      1254,
+      1254
+    ],
+    "displaySize": [
+      300,
+      300
+    ],
+    "aspectRatio": "1:1"
+  },
+  {
+    "screen": "全部通关",
+    "sourceSize": [
+      1254,
+      1254
+    ],
+    "displaySize": [
+      300,
+      300
+    ],
+    "aspectRatio": "1:1"
+  }
+]

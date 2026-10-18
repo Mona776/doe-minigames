@@ -1,0 +1,43 @@
+{
+  "mode": "built-in image_gen",
+  "reference": "exec-55b2c734-c074-4c05-88a2-5f58abeede85.png",
+  "base": "Create ONE square 1:1 screen for a 240x240 pixel retro dachshund Snake game. Reference image is authoritative for VISUAL STYLE ONLY. Keep humble crude low-res pixel graphics, small caramel-brown side-view dachshund with four tiny legs, near-black ink navy background #0E1621, subtle dark checkerboard #14232F/#1B2E3A, thin jade #75B6A3 stepped pixel border, warm gold #E5BB58 accents, ivory #EEE6CE icons. NO neon colors, no polished illustration, no gradients, no elaborate decoration, no vector rounded cards. Very restrained faint horizontal scanlines if any. Flat pixel fills. Game screen only edge to edge, no console, no captions outside screen.\nCRITICAL: No Chinese text, no written labels, no English sentences. All scoring and actions use meaningful pixel pictograms and Arabic digits. Only permissible letters are tiny hardware key badges A B C. Consistent top HUD when shown: left three small numbered stage lamps 1 2 3 (active gold), center ivory bone icon plus n/5, right small trophy plus 15. Minimal clear icons, generous spacing, readable at actual 240px scale. Playfield is 10x10. UI controls use simple icon tiles, selected tile jade outline and little gold triangle. B confirms, A selects/pauses, C backs. No physical on-screen touchscreen look. Reward currency is a SCALLOP SHELL with fan ribs, never a coin.",
+  "screens": [
+    [
+      "01-entry",
+      "Entry screen. No gameplay HUD. Top small bone icon and compact bitmap title 'SAUSAGE' above 'SNAKE' (only title exception to no words). Center the little elongated dachshund. Below trophy icon 15. Two large simple choices horizontally: gold play triangle (selected), ivory question mark. Bottom small B badge play icon and C badge back arrow. Dark checker backdrop subdued."
+    ],
+    [
+      "02-help",
+      "Pictorial how-to screen, no words. Three well-spaced horizontal diagrams: B key once -> clockwise quarter-turn arrow and dog facing right then down; B key with three tiny press marks -> counterclockwise quarter-turn arrow and dog facing right then up; dog -> bone -> longer dog. Bottom narrow row shows A beside pause symbol and C beside return arrow. Small B with play triangle to begin. No HUD, no complex text or unexplained numbers."
+    ],
+    [
+      "03-countdown",
+      "Countdown scene. No HUD or controls visible. The empty dark 10x10 checker field with simple thin jade border, little dog near middle and ivory bone lower left. Large gold bitmap numeral 3 centered over scene. Spare, strong focus."
+    ],
+    [
+      "04-gameplay",
+      "Active round 2 gameplay. Top HUD left stage lamps 1 completed jade, 2 gold active,3 outline; center bone 3/5; right trophy15. Below exactly10x10 checker playfield, simple thin jade square wall. Long connected caramel dog turning L shape with FOUR tiny feet grouped near head and tail, head faces right near center, tiny gold direction triangle near nose. Ivory bone upper right, one short straight barrier of THREE dark teal pixel blocks upper left. No buttons or text in playfield."
+    ],
+    [
+      "05-pause",
+      "Paused game. Keep dimmed gameplay scene and HUD. Center restrained navy rectangular panel thin jade pixel outline, large gold PAUSE SYMBOL two vertical bars. Below two icon choices play triangle selected and exit door/back arrow unselected. Bottom A key beside left-right selection arrows, B key checkmark. No words."
+    ],
+    [
+      "06-exit",
+      "Exit confirmation over dimmed game. Center simple navy panel thin jade pixel border. Top door with outward arrow and small question mark. Middle clearly crossed-out scallop shell icon to communicate no reward. Below play triangle resume selected with jade outline and gold pointer; separate door-arrow quit unselected. Bottom B checkmark, C curved return arrow. No words."
+    ],
+    [
+      "07-stage",
+      "Round transition between first and second stage. Dim checker field, little dog above panel. Simple centered panel shows five filled ivory bone icons with gold checkmark. Below three stage lamps:1 jade checked, arrow,2 gold selected,3 muted outline. A tiny three-block wall icon under lamp2 announces obstacle. Bottom short segmented progress strip indicating automatic continuation, no controls or text. No trophy or misleading score reset."
+    ],
+    [
+      "08-loss",
+      "Failure result after earning eight total bones and completing first of three stages. Navy backdrop thin jade stepped edge. Small dog at top with a tiny crossed wall icon. Middle score bone icon 08, below stars ONE gold filled and TWO empty. Lower reward fan-ribbed SCALLOP SHELL icon +10, no coins. Bottom two icon options circular retry arrow selected and door/back arrow. Small B key check, C back. No words and no huge title."
+    ],
+    [
+      "09-clear",
+      "All three stages completed success result. Navy backdrop thin jade stepped edge. Top three stage lamps all checked. Small happy caramel dachshund standing under THREE simple gold stars. Score ivory bone15 and trophy15 with tiny gold upward sparkle. Reward fan-ribbed SCALLOP SHELL icon +30, never coin. Bottom two icon choices circular retry arrow selected and door/back arrow. B check, C back. No words, no excessive celebration decoration."
+    ]
+  ]
+}

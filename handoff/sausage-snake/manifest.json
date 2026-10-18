@@ -1,0 +1,229 @@
+{
+  "name": "Sausage Snake",
+  "version": "V1.2",
+  "scope": "rules + UI source and shared references; host integration required",
+  "files": [
+    {
+      "path": "src/core/games/sausage.c",
+      "role": "game",
+      "sha256": "d252fbe6a9f5da4bff5b428a73af24a7d2e9cd5dbb16fc5f08cd02c69c54d222",
+      "bytes": 10286
+    },
+    {
+      "path": "src/core/games/sausage.h",
+      "role": "game",
+      "sha256": "cf39c11a0c90a596a8d46037302e45b29a5e5e09227a4dbfd203b0e0ebf02203",
+      "bytes": 6347
+    },
+    {
+      "path": "src/ui/pages/page_sausage.c",
+      "role": "game",
+      "sha256": "fd53a88dfbcc53d8b56bffe9dc067d41df3a5be1eb5a2b15004aa90a8e9c66c8",
+      "bytes": 45544
+    },
+    {
+      "path": "src/ui/pages/page_sausage_entry.c",
+      "role": "game",
+      "sha256": "4a9f9a3e62a59ecb404c535a0e63e0a67cc44264dcdde64d96bd1d084b40ae84",
+      "bytes": 6758
+    },
+    {
+      "path": "src/ui/pages/sausage_ui.c",
+      "role": "game",
+      "sha256": "0213d11d140b37175f140f180f85fc6904f76c6644d7ea70b8cca18c31b9fadb",
+      "bytes": 4533
+    },
+    {
+      "path": "src/ui/pages/sausage_ui.h",
+      "role": "game",
+      "sha256": "d8560032cf49879ed144a7cdf00c48ab81068c9bfce271cd2918cd530e99a121",
+      "bytes": 885
+    },
+    {
+      "path": "src/tests/test_sausage.c",
+      "role": "game",
+      "sha256": "1af381c5cef67aff7f243e95059b49668248d0069de1cc38c435b07e067d0089",
+      "bytes": 24811
+    },
+    {
+      "path": "src/ui/pages/snake_art.c",
+      "role": "shared-reference",
+      "sha256": "f48b641b36c0ae40ca48247bba820c983cc635e73eb69c16ebcb2ff1ca8679c2",
+      "bytes": 4524
+    },
+    {
+      "path": "src/ui/pages/snake_art.h",
+      "role": "shared-reference",
+      "sha256": "ade2cc6270269bb62c9c478e34420effd9efa4a949cb2f89013d659a1e59691c",
+      "bytes": 1894
+    },
+    {
+      "path": "src/ui/pages/snake_ui.c",
+      "role": "shared-reference",
+      "sha256": "84834b057a29ce36ea6471306b573f18e1efe5581201dc3d2bad70a6858f019c",
+      "bytes": 2100
+    },
+    {
+      "path": "src/ui/pages/snake_ui.h",
+      "role": "shared-reference",
+      "sha256": "e9b70cec4b26ecaa9b44f0bedfa15075deee5198a711276ffc0c8d0a61ea040c",
+      "bytes": 758
+    },
+    {
+      "path": "src/ui/pages/game_art.c",
+      "role": "shared-reference",
+      "sha256": "0dfc45cdfbd33cc0d34532c37646b17678f083d75de6a9e3c835b7832e6f1d62",
+      "bytes": 689
+    },
+    {
+      "path": "src/ui/pages/game_art.h",
+      "role": "shared-reference",
+      "sha256": "a4ec1671fb848d02ed378d64e1a8dc4fc138f739299353a1ec2604373030f144",
+      "bytes": 229
+    },
+    {
+      "path": "src/ui/pages/pages.h",
+      "role": "shared-reference",
+      "sha256": "122116e24201df16899fd6012645fc89609efababe264c8d4bcac49a9a812c45",
+      "bytes": 426
+    },
+    {
+      "path": "src/ui/page_mgr.c",
+      "role": "shared-reference",
+      "sha256": "27f188017e1450b8994effcd857789c54f3150da94d547a34d99bf6edf5c2a3a",
+      "bytes": 4003
+    },
+    {
+      "path": "src/ui/page_mgr.h",
+      "role": "shared-reference",
+      "sha256": "f3f0bf67aa332a7fae6e64bcf80f31bdbf4794a54f6c0f5c2c11fd5aaa9e2854",
+      "bytes": 1589
+    },
+    {
+      "path": "src/ui/sprite.c",
+      "role": "shared-reference",
+      "sha256": "45a82b8a596080161e67718c6276e466bf5cc50ba74edb480da1b6fff6e90e11",
+      "bytes": 3680
+    },
+    {
+      "path": "src/ui/sprite.h",
+      "role": "shared-reference",
+      "sha256": "18c7daf23a4820341bd5a057e09db21444a01da2e3afe5ee51638dd21349574a",
+      "bytes": 1982
+    },
+    {
+      "path": "src/ui/ui_theme.c",
+      "role": "shared-reference",
+      "sha256": "0b31c8f2ce2b4086c77f2515e682ce9ddbd998df9c8830bc9750832452dde770",
+      "bytes": 9006
+    },
+    {
+      "path": "src/ui/ui_theme.h",
+      "role": "shared-reference",
+      "sha256": "d1e409bc697f4e35267f97edd0abe08dabe9c1b2154d197c36029e5394f9a43c",
+      "bytes": 2650
+    },
+    {
+      "path": "src/ui/ui_records.c",
+      "role": "shared-reference",
+      "sha256": "f9fe430b2d113e8905c4ce4c114d135ed895234efd0e3b6a4afb460495f9fa41",
+      "bytes": 355
+    },
+    {
+      "path": "src/ui/ui_records.h",
+      "role": "shared-reference",
+      "sha256": "d241644c7cf2b0bd3f40444241634276718158b36ce022dee3ac08d1e57e50f5",
+      "bytes": 356
+    },
+    {
+      "path": "src/ui/ui_sfx.c",
+      "role": "shared-reference",
+      "sha256": "0296f5f423b9c5857b782338b07b979f71a666441e26571ee75aa4e66419ba91",
+      "bytes": 4436
+    },
+    {
+      "path": "src/ui/ui_sfx.h",
+      "role": "shared-reference",
+      "sha256": "46c3fe6e0242d7e4140ade047cbcaf0a0342af5c2fa0cda030e30167df1c86c6",
+      "bytes": 1490
+    },
+    {
+      "path": "src/ui/pet_fonts.h",
+      "role": "shared-reference",
+      "sha256": "fb1be554bdb358697c9249bdf99850bae6dce531ec3e946eff287cf019288d77",
+      "bytes": 396
+    },
+    {
+      "path": "src/core/app_msg.h",
+      "role": "shared-reference",
+      "sha256": "fa235b982d6c306395e1602fdf25640abca06e146e04728522f539ef75ea63fe",
+      "bytes": 1515
+    },
+    {
+      "path": "src/input/input.c",
+      "role": "shared-reference",
+      "sha256": "642c1c483e2a9321d2c44c5363e65a61e36e2d90ff9d2aa13cc6c7aaadd9aa3e",
+      "bytes": 5337
+    },
+    {
+      "path": "src/input/input.h",
+      "role": "shared-reference",
+      "sha256": "417e5137ea27743dcea713c363c59b3f6d8a4c69e9141fdf3b5e886ebf2609cd",
+      "bytes": 1963
+    },
+    {
+      "path": "src/input/input_config.h",
+      "role": "shared-reference",
+      "sha256": "7eb76957db266a84db213c05386dfd04acc4123cf30c24afd483624b9d7f4feb",
+      "bytes": 387
+    },
+    {
+      "path": "src/hal/hal_clock.h",
+      "role": "shared-reference",
+      "sha256": "596528661d5887d34b8ae73c6fcdacf02218c2edda13f47596c700d481842886",
+      "bytes": 477
+    },
+    {
+      "path": "src/hal/hal_audio.h",
+      "role": "shared-reference",
+      "sha256": "59778885fdb1436d9d8cf17b18d18c5de46ad0608ec48232eab0722b8b4eff51",
+      "bytes": 657
+    },
+    {
+      "path": "src/lv_conf.h",
+      "role": "shared-reference",
+      "sha256": "0a403cd54a51cf58d9105fe26743a7f1192220b37b79296efd664e47024c6b8c",
+      "bytes": 75590
+    },
+    {
+      "path": "src/assets/generated/font_ui_12.c",
+      "role": "shared-reference",
+      "sha256": "467d202492776be7dcdc23b1afadce3f4947608bece0bf7794bbe24eae03247d",
+      "bytes": 60544
+    },
+    {
+      "path": "src/assets/generated/font_ui_24.c",
+      "role": "shared-reference",
+      "sha256": "6b23feb40e4fdaac2612adb081f4ceb0f7734fe5b1af57f6ec8ab6a7a8241659",
+      "bytes": 116269
+    },
+    {
+      "path": "src/assets/generated/font_chars.txt",
+      "role": "shared-reference",
+      "sha256": "9b1893f1db34ecdc06619e95b00b8915cae6a85662d403bdbfc28304b4c811c9",
+      "bytes": 536
+    },
+    {
+      "path": "src/ui/asset.c",
+      "role": "shared-reference",
+      "sha256": "6c1f4b4adc7f4f206159fff45b534776923b2693a28ed6d5050e2289b86a5448",
+      "bytes": 128
+    },
+    {
+      "path": "src/ui/asset.h",
+      "role": "shared-reference",
+      "sha256": "3c39502f4993099f38cac20e6a5de5b6f3148b9fe1b0663e56510cbbe4686868",
+      "bytes": 353
+    }
+  ]
+}

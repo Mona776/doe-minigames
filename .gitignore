@@ -1,0 +1,14 @@
+# 本地构建与运行数据
+/build*/
+/sim_storage/
+/screenshots/
+/output/
+.DS_Store
+**/.DS_Store
+**/node_modules/
+**/__pycache__/
+*.pyc
+*.log
+.env
+.env.*
+!.env.example

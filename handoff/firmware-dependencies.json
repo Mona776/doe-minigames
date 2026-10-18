@@ -1,0 +1,20 @@
+[
+  {
+    "path": "pico-sdk",
+    "url": "https://github.com/raspberrypi/pico-sdk.git",
+    "commit": "079c6f39023649b154152db30f1d781e884879bc",
+    "recursive": true
+  },
+  {
+    "path": "FreeRTOS-Kernel",
+    "url": "https://github.com/raspberrypi/FreeRTOS-Kernel.git",
+    "commit": "4f7299d6ea746b27a9dd19e87af568e34bd65b15",
+    "recursive": false
+  },
+  {
+    "path": "littlefs",
+    "url": "https://github.com/littlefs-project/littlefs.git",
+    "commit": "6cb4e86540eca0d9ba62500a298385c9d863c8be",
+    "recursive": false
+  }
+]

@@ -1,0 +1,14 @@
+Edit the supplied visual concept board. Preserve the attractive crisp pixel-art garden aesthetic, dark-teal outlines, cream/cyan double stepped panels, white dachshund with brown patches, icon designs, palette, and all nine screen concepts. This is a precision UI composition correction, not a new style.
+
+CRITICAL change: Every one of the NINE individual device screen panels MUST be an exact 1:1 square, all the same width AND height. The device resolution is 240×240. Recompose each full screen inside its square; do not stretch the existing rectangular screens. Use a SQUARE output canvas, 3 columns × 3 rows of equal square screens with narrow off-white gutters and compact outside captions. Small heading only. No device casing. Every screen has complete designed visuals, no placeholder rectangles. Maintain readable UI suitable for a small 240×240 display; keep scenery illustrative and secondary to UI.
+
+CRITICAL controls: The hardware confirmation key is B, not A. Change every currently displayed confirmation/jump/lock badge from A to B. Menu bottom legend must read exactly "A 选择   B 确认". A is selection/pause; B is confirmation/jump/lock; C returns. Do not introduce a directional pad icon that suggests the games use directional buttons. Remove any standalone A badge on gameplay frames and replace it with B. This correction must be visibly reflected in panel 1, panel 2 and panel 4.
+
+CRITICAL next-round flow: In panel 8, snake stage completion is AUTOMATIC. Remove the clickable-looking bottom "下一关" button/paw selector. Replace it with a simple, unobtrusive right-arrow next-stage badge "第2关" and a small loading/progress ornament; keep five bone completion icons and a clear stone obstacle preview. It is an automatic transition, not a button.
+
+Panel 2 matching gauge: Show exactly seven positions on the upper rope indicator, spanning DOG end to HAND end, marker initially central. The power gauge's green success zone must center around the fixed RED owner target near 70. Brighter lime zone inside it. Moving teal indicator distinct. NOT a continuous stronger-is-better rainbow gradient. Neutral blue/teal gauge outside the local green band. Small B key lock symbol.
+
+Panel 3 dachshund: Preserve one head and one tail, four short feet only (a front pair near the head and a rear pair near the tail), no extra legs. Header 3/5 indicates three bones in this stage.
+Panel 4 tennis: small machine far upper-left, large dog near lower-right facing left, scattered balls on left ground. No dotted flight trajectory.
+All other panels preserve their functionality: pause choices, 3-star shell reward +30 and zero-miss label, countdown with all HUD hidden, 0-star gentle failure with shell +5.
+Keep final UI beautiful, compact and expressive. Chinese text must be accurate and legible. No extra mechanics, no stamina meters or new currencies. This is the finished visual design review, not editable implementation.
