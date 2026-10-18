@@ -115,7 +115,7 @@ uint8_t sausage_segment(const SausageGame* g, uint8_t i);
 // 每次确定键按下：所选方向顺时针转 90°；仅走动阶段有效
 bool sausage_turn(SausageGame* g);
 
-// 当前所选方向，供下一次移动和方向箭头使用
+// 当前所选方向，供下一次移动使用
 SausageDir sausage_next_dir(const SausageGame* g);
 
 // 暂停/继续；只在走动和暂停时有效，返回是否切换了

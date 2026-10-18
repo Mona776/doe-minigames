@@ -2,17 +2,19 @@
 
 包含拔河、贪吃腊肠（三关）、Sausage Snake（无尽）、接网球的原型及 Mac / FreeRTOS 模拟器、Pico 固件适配。
 
-本仓库是现有工程的交付副本，未改动原项目的游戏逻辑、画面和启动方式。素材属于原型资产，正式制作要求见 PRD；此仓库不授予第三方素材的额外授权。
+本仓库是原型工程的交付副本，当前 UI 修订与交付说明见下文。素材属于原型资产，正式制作要求见 PRD；此仓库不授予第三方素材的额外授权。
 
 ## 从哪里开始
 
 - 想体验：按下面步骤启动 Mac 模拟器。
 - 只看 Sausage Snake 无尽版：直接打开 [无尽版交付目录](handoff/sausage-snake/)。其中包含游戏代码、UI、依赖参考和 PRD，不含模拟器；可自行评估哪些代码能用于主项目。
-- 想了解无尽版的依赖和接口：阅读 [接入说明](docs/SAUSAGE_INTEGRATION.md)，或从 [Release 下载交付包](https://github.com/Mona776/doe-minigames/releases/tag/sausage-snake-v1.2-handoff)。
+- 想了解无尽版的依赖和接口：阅读 [接入说明](docs/SAUSAGE_INTEGRATION.md)，或从 [Release 下载交付包](https://github.com/Mona776/doe-minigames/releases/tag/sausage-snake-v1.3-ui-handoff)。
 - 想了解代码边界：阅读 [目录与依赖](docs/PROJECT_GUIDE.md)。
-- 最新无尽版产品需求：[PRD V1.4](设计交付/SausageSnake-无尽版PRD/SausageSnake_无尽版_PRD_V1.4.md)，与[飞书当前文档](https://vcnz89wpi7j4.feishu.cn/wiki/JKSCwKYQEikpt3kNUgScSt84ndh)同步。旧版本与效果稿仅供历史参考。
+- 无尽版产品需求：[PRD V1.4](设计交付/SausageSnake-无尽版PRD/SausageSnake_无尽版_PRD_V1.4.md)；[飞书当前文档](https://vcnz89wpi7j4.feishu.cn/wiki/JKSCwKYQEikpt3kNUgScSt84ndh)（插图已更新）。旧版本与效果稿仅供历史参考。
 
-V1.2 Release 保留为当时的交付快照；主分支及 `handoff/sausage-snake/PRD.md` 已更新为 V1.4 文档，游戏规则和源码不变。
+当前交付版本为 **V1.3 UI修订（2026-10-19）**：彩色实机按键、结算选择菜单、去除局内箭头、即时转向反馈及页面布局调整。游戏素材保持原样；原 V1.2 Release 保留为历史快照。
+
+包内 PRD 文本版本仍为 V1.4，其结算按键及旧字母提示以[最新接入说明](docs/SAUSAGE_INTEGRATION.md#2026-10-19-ui修订)为准。查看[最新界面图和模拟器实测](设计交付/SausageSnake-无尽版UI/当前UI-20261019/)。
 
 ## 目录里都是什么
 

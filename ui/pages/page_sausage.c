@@ -3,7 +3,7 @@
  * 从入口页（page_sausage_entry.c）替换过来
  * 按键：B（确定）顺时针转 90°（按下即生效，按住不重复），A（选择）暂停/继续，
  * C（返回）弹出结束确认（倒计时、走动时；弹窗打开时游戏冻结），暂停中按 C 直接结束；手动结束也按当前骨头数结算
- * 规则在 core/games/sausage.c；这里每帧推进规则，10×10 网格每格一个图片对象，美术、拼接、脚和箭头和贪吃腊肠一样，
+ * 规则在 core/games/sausage.c；这里每帧推进规则，10×10 网格每格一个图片对象，美术、拼接和脚与贪吃腊肠一样，
  * 像素画共用 snake_art
  * 顶栏从左到右：档位、骨头数、三个星位、历史最高；吃到第 5、10、15 根时从骨头数那里飞出 5 根小骨头落进星位，
  * 最后一根落下时星位点亮弹一下，配一串越来越高的「嘀」加一声「叮」；之后的升档把最高分临时换成「加速!」；
@@ -11,7 +11,7 @@
  * 点亮的星（顶栏和结算页）每隔一会儿有一道高光斜着扫过，三颗依次错开；
  * 新加的石头闪几下再定住；
  * 撞到后腊肠闪几下再显示结算，手动结束立即显示结算；结算把奖励和骨头数（最高分）作为命令发给逻辑服务；
- * 结算页 B 再来一局，C 回入口页
+ * 结算页选择键切换「再来一局 / 返回入口」，确认键执行；返回键无操作
  * 走动时循环放一段复古街机风的背景乐，档位越高放得越快；音效响时背景乐让开，暂停、结束确认时停在原处；
  * 音效是复古街机风格，走路和转向不出声：吃到骨头「啾」，倒计时「嘀、嘀、嘀、嘀——」，升档一串快速上行琶音，
  * 撞到先一下噪声再一路滑下去
@@ -50,9 +50,6 @@
 #define WALL_W         2
 #define LEGS_PX        (SNAKE_LEGS * TILE_SCALE)
 #define LEGS_INSET     ((LEGS_PX - CELL_PX) / 2)
-#define ARROW_SCALE    2
-#define ARROW_PX       (SNAKE_ARROW * ARROW_SCALE)
-#define ARROW_OFFSET   14   // 箭头中心离头中心的距离，刚好露在头前面
 #define DIGIT_SCALE    4
 
 #define BONE_POP_MS    250  // 新骨头从小弹到稍大再落回原大
@@ -165,6 +162,7 @@ static const SpriteTurn TURN[] = {
 #define DIM_OPA          LV_OPA_60  // 暂停、结束确认时压暗场景
 
 enum { CONFIRM_STAY, CONFIRM_END, CONFIRM_COUNT };
+enum { RESULT_RETRY, RESULT_LEAVE, RESULT_COUNT };
 
 static SausageGame s_game;
 static lv_timer_t* s_timer;
@@ -180,6 +178,8 @@ static uint8_t s_eat_cell;
 static bool s_result_shown;
 static bool s_confirm_open;
 static uint8_t s_confirm_focus;
+static uint8_t s_result_focus;
+static lv_obj_t* s_result_options[RESULT_COUNT];
 static bool s_new_rock[SAUSAGE_CELLS];  // 刚升档加的石头，闪完之前要逐帧画
 static bool s_rocks_blinking;
 static uint8_t s_earned_stars;  // 已经拿到的星
@@ -213,7 +213,6 @@ static lv_draw_buf_t* s_body_buf[2];  // 横、竖
 static lv_draw_buf_t* s_corner_buf[4];
 static lv_draw_buf_t* s_bone_buf;
 static lv_draw_buf_t* s_rock_buf;
-static lv_draw_buf_t* s_arrow_buf[4];
 static lv_draw_buf_t* s_front_buf;
 static lv_draw_buf_t* s_back_buf;
 static lv_draw_buf_t* s_digit_buf;
@@ -223,7 +222,7 @@ static lv_draw_buf_t* s_icon_shell_buf;
 static lv_draw_buf_t* s_icon_star_buf[2];
 static lv_draw_buf_t* s_shine_buf[SHINE_FRAMES];  // 亮星加一道斜高光，按帧
 
-static lv_obj_t* s_field;  // 墙、格子、脚、箭头和特效都在这里面，震动时只挪它
+static lv_obj_t* s_field;  // 墙、格子、脚和特效都在这里面，震动时只挪它
 static lv_obj_t* s_wall;
 static lv_obj_t* s_cells[SAUSAGE_CELLS];
 static lv_obj_t* s_bone;
@@ -232,7 +231,6 @@ static lv_obj_t* s_debris[DEBRIS_N];
 static lv_obj_t* s_stars[STAR_N];
 static Legs s_front;
 static Legs s_back;
-static lv_obj_t* s_arrow;
 static lv_obj_t* s_header;
 static lv_obj_t* s_tier;
 static lv_obj_t* s_best;   // 历史最高，本局超过后跟着骨头数走；升档时临时换成「加速!」
@@ -262,14 +260,6 @@ static lv_obj_t* label(lv_obj_t* parent, const lv_font_t* font, uint32_t color) 
     return l;
 }
 
-static lv_obj_t* column_panel(lv_obj_t* scr, int32_t w, int32_t h) {
-    lv_obj_t* p = sausage_ui_panel(scr, w, h);
-    lv_obj_set_flex_flow(p, LV_FLEX_FLOW_COLUMN);
-    lv_obj_set_flex_align(p, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-    lv_obj_set_style_pad_row(p, 4, 0);
-    return p;
-}
-
 static SausageDir dir_between(uint8_t from, uint8_t to) {
     int d = (int)to - (int)from;
     if (d == 1) return SAUSAGE_RIGHT;
@@ -284,7 +274,7 @@ static SausageDir tail_dir(const SausageGame* g) {
 
 static const void* segment_tile(const SausageGame* g, uint8_t i) {
     uint8_t c = sausage_segment(g, i);
-    if (i == 0) return s_head_buf[g->dir];
+    if (i == 0) return s_head_buf[sausage_next_dir(g)];
     if (i == g->len - 1) return s_tail_buf[tail_dir(g)];
     SausageDir to_head = dir_between(c, sausage_segment(g, i - 1));
     SausageDir to_tail = dir_between(c, sausage_segment(g, i + 1));
@@ -331,27 +321,9 @@ static void render_legs(const SausageGame* g) {
     if (g->phase == SAUSAGE_PHASE_RUN) {
         frame = (int8_t)((g->phase_ms * LEG_FRAMES_PER_STEP / sausage_step_ms(g->tier)) % 2);
     }
-    place_legs(&s_front, sausage_segment(g, 0), g->dir, frame);
+    place_legs(&s_front, sausage_segment(g, 0), sausage_next_dir(g), frame);
     place_legs(&s_back, sausage_segment(g, g->len - 1), tail_dir(g),
                g->phase == SAUSAGE_PHASE_RUN ? 1 - frame : 0);
-}
-
-static void place_arrow(const SausageGame* g) {
-    bool shown = g->phase != SAUSAGE_PHASE_OVER;
-    lv_obj_set_hidden(s_arrow, !shown);
-    if (!shown) return;
-    SausageDir dir = sausage_next_dir(g);
-    int32_t cx, cy;
-    cell_origin(sausage_segment(g, 0), &cx, &cy);
-    cx += CELL_PX / 2;
-    cy += CELL_PX / 2;
-    if (dir == SAUSAGE_RIGHT) cx += ARROW_OFFSET;
-    if (dir == SAUSAGE_LEFT) cx -= ARROW_OFFSET;
-    if (dir == SAUSAGE_DOWN) cy += ARROW_OFFSET;
-    if (dir == SAUSAGE_UP) cy -= ARROW_OFFSET;
-    const void* src = s_arrow_buf[dir];
-    if (lv_image_get_src(s_arrow) != src) lv_image_set_src(s_arrow, src);
-    lv_obj_set_pos(s_arrow, cx - ARROW_PX / 2, cy - ARROW_PX / 2);
 }
 
 static void show(lv_obj_t* obj, bool shown) {
@@ -660,7 +632,6 @@ static void render(void) {
     render_new_rocks(g, now);
     render_bone(g, now);
     render_legs(g);
-    place_arrow(g);
     render_best(g, now);
 
     if (ate) {
@@ -691,6 +662,11 @@ static const char* end_name(SausageEnd end) {
     }
 }
 
+static void set_result_focus(uint8_t focus) {
+    s_result_focus = focus;
+    for (uint8_t i = 0; i < RESULT_COUNT; i++) sausage_ui_focus(s_result_options[i], i == focus);
+}
+
 static void show_result(void) {
     const SausageGame* g = &s_game;
     SausageReward reward = sausage_reward(g->bones);
@@ -709,9 +685,10 @@ static void show_result(void) {
     if (new_record) {
         lv_label_set_text_fmt(s_result_best, "新纪录! %u", (unsigned)g->bones);
     } else {
-        lv_label_set_text_fmt(s_result_best, "最高 %u", (unsigned)best);
+        lv_label_set_text_fmt(s_result_best, "最高纪录 %u", (unsigned)best);
     }
     lv_obj_set_style_text_color(s_result_best, lv_color_hex(new_record ? SAUSAGE_UI_GOLD : SAUSAGE_UI_DIM), 0);
+    set_result_focus(RESULT_RETRY);
     lv_obj_set_hidden(s_result, false);
     show_snake(g, true);
 
@@ -798,7 +775,6 @@ static void create_tiles(void) {
         sprite_buf_render(&s_head_buf[r], &snake_head, TILE_SCALE, TURN[r]);
         sprite_buf_render(&s_tail_buf[r], &snake_tail, TILE_SCALE, TURN[r]);
         sprite_buf_render(&s_corner_buf[r], &snake_corner, TILE_SCALE, (SpriteTurn){r, false});
-        sprite_buf_render(&s_arrow_buf[r], &snake_arrow, ARROW_SCALE, (SpriteTurn){(uint8_t)((r + 3) % 4), false});
     }
     sprite_buf_render(&s_body_buf[0], &snake_body, TILE_SCALE, (SpriteTurn){0, false});
     sprite_buf_render(&s_body_buf[1], &snake_body, TILE_SCALE, (SpriteTurn){1, false});
@@ -857,8 +833,6 @@ static void create_field(lv_obj_t* scr) {
 
     create_legs(field, &s_front, &s_front_buf, snake_front_legs);
     create_legs(field, &s_back, &s_back_buf, snake_back_legs);
-    s_arrow = lv_image_create(field);
-    lv_obj_set_size(s_arrow, ARROW_PX, ARROW_PX);
 
     for (uint8_t i = 0; i < DEBRIS_N; i++) {
         s_debris[i] = pixel_box(field, DEBRIS_PX, UI_COLOR_CREAM, LV_OPA_COVER);
@@ -927,17 +901,27 @@ static lv_obj_t* dim_layer(lv_obj_t* scr) {
 
 static void create_confirm(lv_obj_t* scr) {
     s_confirm = dim_layer(scr);
-    lv_obj_t* panel = column_panel(s_confirm, 184, 154);
-    lv_obj_center(panel);
-    lv_obj_t* line = label(panel, &font_ui_24, SAUSAGE_UI_TEXT);
+    lv_obj_t* panel = sausage_ui_panel(s_confirm, 184, 154);
+    lv_obj_set_pos(panel, 28, 41);
+    lv_obj_t* line = label(s_confirm, &font_ui_24, SAUSAGE_UI_TEXT);
     lv_label_set_text(line, "结束本局？");
-    line = label(panel, &font_ui_12, SAUSAGE_UI_DIM);
+    lv_obj_align(line, LV_ALIGN_TOP_MID, 0, 50);
+    lv_obj_t* shell = snake_icon_create(s_confirm, &s_icon_shell_buf, &snake_icon_shell, ICON_SCALE);
+    lv_obj_align(shell, LV_ALIGN_TOP_MID, 0, 80);
+    line = label(s_confirm, &font_ui_12, SAUSAGE_UI_DIM);
     lv_label_set_text(line, "按当前成绩结算");
+    lv_obj_align(line, LV_ALIGN_TOP_MID, 0, 102);
     static const char* const text[CONFIRM_COUNT] = {"继续游戏", "结束本局"};
     for (uint8_t i = 0; i < CONFIRM_COUNT; i++) {
-        s_confirm_options[i] = sausage_ui_option(panel, text[i], &font_ui_12, 142, 26);
+        s_confirm_options[i] = sausage_ui_option(s_confirm, text[i], &font_ui_12, 142, 26);
+        lv_obj_set_pos(s_confirm_options[i], 49, 127 + i * 34);
     }
-    sausage_ui_keys(panel, "A 切换  B 确定  C 取消");
+    sausage_ui_hint(s_confirm, "A 切换  B 确定  C 取消");
+}
+
+static void create_result_doe(lv_obj_t* parent) {
+    lv_obj_t* doe = sausage_ui_doe(parent, 2);
+    lv_obj_align(doe, LV_ALIGN_TOP_MID, 0, 49);
 }
 
 static void create_overlays(lv_obj_t* scr) {
@@ -954,39 +938,42 @@ static void create_overlays(lv_obj_t* scr) {
     lv_obj_align(s_go, LV_ALIGN_TOP_MID, 0, 70);
 
     s_pause = dim_layer(scr);
-    lv_obj_t* panel = column_panel(s_pause, 170, 90);
-    lv_obj_center(panel);
-    lv_obj_t* line = label(panel, &font_ui_24, SAUSAGE_UI_TEXT);
+    lv_obj_t* panel = sausage_ui_panel(s_pause, 170, 90);
+    lv_obj_set_pos(panel, 35, 75);
+    lv_obj_t* line = label(s_pause, &font_ui_24, SAUSAGE_UI_TEXT);
     lv_label_set_text(line, "暂停");
-    sausage_ui_keys(panel, "A 继续  C 结束");
+    lv_obj_align(line, LV_ALIGN_TOP_MID, 0, 87);
+    lv_obj_t* pause_keys = sausage_ui_keys(s_pause, "A 继续  C 结束");
+    lv_obj_align(pause_keys, LV_ALIGN_TOP_MID, 0, 132);
 
-    // 完整结算页覆盖场景，按钮上的 B / C 直接对应实际操作，无额外选择步骤。
+    // 结算与入口一致：选择键切换，确认键执行，返回键不参与。
     s_result = ui_box_create(scr);
     lv_obj_set_size(s_result, 240, 240);
     sausage_ui_background(s_result);
     lv_obj_t* title = label(s_result, &font_ui_24, SAUSAGE_UI_TEXT);
     lv_label_set_text(title, "本局结束");
-    lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 23);
+    lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 14);
+    create_result_doe(s_result);
     lv_obj_t* stars = flex_row(s_result, 8);
-    lv_obj_align(stars, LV_ALIGN_TOP_MID, 0, 57);
+    lv_obj_align(stars, LV_ALIGN_TOP_MID, 0, 83);
     for (uint8_t i = 0; i < 3; i++) {
         s_result_stars[i] = snake_icon_create(stars, &s_icon_star_buf[0], &snake_icon_star[0], RESULT_STAR_SCALE);
     }
     lv_obj_t* rewards = flex_row(s_result, 20);
-    lv_obj_align(rewards, LV_ALIGN_TOP_MID, 0, 96);
+    lv_obj_align(rewards, LV_ALIGN_TOP_MID, 0, 106);
     s_result_bones =
         icon_row(rewards, NULL, &s_icon_bone_buf, &snake_icon_bone, ICON_SCALE, &font_ui_24, SAUSAGE_UI_TEXT);
     s_result_shells =
         icon_row(rewards, NULL, &s_icon_shell_buf, &snake_icon_shell, ICON_SCALE, &font_ui_24, SAUSAGE_UI_TEXT);
     s_result_best = label(s_result, &font_ui_12, SAUSAGE_UI_DIM);
-    lv_obj_align(s_result_best, LV_ALIGN_TOP_MID, 0, 130);
-    lv_obj_t* retry = sausage_ui_option(s_result, "B 再来一局", &font_ui_12, 142, 28);
-    lv_obj_align(retry, LV_ALIGN_TOP_MID, 0, 154);
-    // 这是快捷键提示，不是需要 A 切换的菜单项。
-    lv_obj_set_hidden(lv_obj_get_child(retry, 1), true);
-    lv_obj_set_style_border_color(retry, lv_color_hex(SAUSAGE_UI_GOLD), 0);
-    lv_obj_t* back = sausage_ui_option(s_result, "C 返回", &font_ui_12, 142, 28);
-    lv_obj_align(back, LV_ALIGN_TOP_MID, 0, 190);
+    lv_obj_align(s_result_best, LV_ALIGN_TOP_MID, 0, 132);
+    static const char* const result_text[RESULT_COUNT] = {"再来一局", "返回入口"};
+    for (uint8_t i = 0; i < RESULT_COUNT; i++) {
+        s_result_options[i] = sausage_ui_option(s_result, result_text[i], &font_ui_12, 142, 28);
+        lv_obj_set_pos(s_result_options[i], 49, 146 + i * 32);
+    }
+    lv_obj_t* result_keys = sausage_ui_keys(s_result, "A 切换  B 确定");
+    lv_obj_align(result_keys, LV_ALIGN_TOP_MID, 0, 212);
 
     create_confirm(scr);
 }
@@ -1058,8 +1045,11 @@ static bool on_input(const InputEvent* e) {
     bool short_back = e->type == INPUT_EVT_SHORT_PRESS && e->key == INPUT_KEY_BACK;
     if (s_game.phase == SAUSAGE_PHASE_OVER) {
         if (!s_result_shown || e->type != INPUT_EVT_SHORT_PRESS) return true;
-        if (e->key == INPUT_KEY_OK && lv_tick_elaps(s_result_at) >= RESULT_LOCK_MS) start();
-        if (e->key == INPUT_KEY_BACK) page_replace(&page_sausage_entry, NULL);
+        if (e->key == INPUT_KEY_SELECT) set_result_focus((uint8_t)((s_result_focus + 1) % RESULT_COUNT));
+        if (e->key == INPUT_KEY_OK && lv_tick_elaps(s_result_at) >= RESULT_LOCK_MS) {
+            if (s_result_focus == RESULT_RETRY) start();
+            else page_replace(&page_sausage_entry, NULL);
+        }
         return true;
     }
     if (short_back) {

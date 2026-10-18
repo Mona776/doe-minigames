@@ -12,27 +12,19 @@
 #include "snake_ui.h"
 #include "sausage_ui.h"
 
-#define DOE_SCALE    3
-#define DOE_BONE_GAP 2
-#define DOE_W        (SNAKE_LEGS - SNAKE_TILE + 5 * SNAKE_TILE + DOE_BONE_GAP)  // 四节身体、一根骨头，两边各留脚伸出的 1 像素
-#define DOE_Y        94
-#define BEST_Y       132
+#define DOE_Y        99
+#define BEST_Y       130
 #define OPTION_W    138
 #define OPTION_H    26
-#define OPTION_Y0   150
-#define OPTION_STEP 33
-#define ICON_SCALE  2
-#define TURN_PX     (SNAKE_TURN_ICON * ICON_SCALE)
-#define HELP_X      24
-#define HELP_TEXT_X (HELP_X + TURN_PX + 8)
+#define OPTION_Y0   144
+#define OPTION_STEP 32
 
 enum { OPTION_START, OPTION_HELP, OPTION_COUNT };
 
 static const char* const OPTION_TEXT[OPTION_COUNT] = {"开始游戏", "玩法说明"};
 static const uint8_t FOCUS_HELP = OPTION_HELP;  // 从说明页回来时传给入口页，选中玩法说明
 
-static lv_draw_buf_t* s_doe_buf;
-static lv_draw_buf_t* s_turn_buf;
+static lv_draw_buf_t* s_title_bone_buf;
 
 static lv_obj_t* s_options[OPTION_COUNT];
 static uint8_t s_focus;
@@ -49,31 +41,6 @@ static void hint_bar(lv_obj_t* scr, const char* text) {
     sausage_ui_hint(scr, text);
 }
 
-static void place(lv_obj_t* obj, int32_t x, int32_t y) {
-    lv_obj_set_pos(obj, x, y);
-}
-
-// 侧面的 Doe：尾巴、两节身体、头，前后脚挂在头和尾巴下面，头前面一根骨头。
-// 先按原尺寸拼成一张小图再整体放大，分开放大的几张图接缝处会露出细缝
-static void create_doe(lv_obj_t* scr) {
-    int32_t inset = (SNAKE_LEGS - SNAKE_TILE) / 2;
-    lv_draw_buf_t* buf = sprite_buf_begin(&s_doe_buf, DOE_W, SNAKE_LEGS);
-    sprite_buf_paint_at(buf, &snake_tail, inset, inset);
-    sprite_buf_paint_at(buf, &snake_body, inset + SNAKE_TILE, inset);
-    sprite_buf_paint_at(buf, &snake_body, inset + 2 * SNAKE_TILE, inset);
-    sprite_buf_paint_at(buf, &snake_head, inset + 3 * SNAKE_TILE, inset);
-    sprite_buf_paint_at(buf, &snake_bone, inset + 4 * SNAKE_TILE + DOE_BONE_GAP, inset);
-    sprite_buf_paint_at(buf, &snake_back_legs[0], 0, 0);
-    sprite_buf_paint_at(buf, &snake_front_legs[0], 3 * SNAKE_TILE, 0);
-
-    lv_obj_t* doe = lv_image_create(scr);
-    lv_image_set_src(doe, buf);
-    lv_image_set_antialias(doe, false);
-    lv_image_set_inner_align(doe, LV_IMAGE_ALIGN_STRETCH);
-    lv_obj_set_size(doe, DOE_W * DOE_SCALE, SNAKE_LEGS * DOE_SCALE);
-    lv_obj_align(doe, LV_ALIGN_TOP_MID, 0, DOE_Y);
-}
-
 static void update_focus(void) {
     for (uint8_t i = 0; i < OPTION_COUNT; i++) sausage_ui_focus(s_options[i], i == s_focus);
 }
@@ -82,12 +49,15 @@ static void update_focus(void) {
 static void entry_create(lv_obj_t* scr, void* arg) {
     sausage_ui_screen(scr, true);
     lv_obj_t* title = label(scr, &font_ui_24, SAUSAGE_UI_GOLD, "SAUSAGE");
-    lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 28);
+    lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 36);
     title = label(scr, &font_ui_24, SAUSAGE_UI_TEXT, "SNAKE");
-    lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 52);
+    lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 60);
     title = label(scr, &font_ui_12, SAUSAGE_UI_DIM, "ENDLESS");
-    lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 78);
-    create_doe(scr);
+    lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 84);
+    lv_obj_t* doe = sausage_ui_doe(scr, 2);
+    lv_obj_align(doe, LV_ALIGN_TOP_MID, 0, DOE_Y);
+    lv_obj_t* bone = snake_icon_create(scr, &s_title_bone_buf, &snake_icon_bone, 1);
+    lv_obj_align(bone, LV_ALIGN_TOP_MID, 0, 12);
     lv_obj_t* best = label(scr, &font_ui_12, SAUSAGE_UI_DIM, "");
     lv_label_set_text_fmt(best, "最高纪录 %u", (unsigned)ui_records_best(GAME_SAUSAGE));
     lv_obj_align(best, LV_ALIGN_TOP_MID, 0, BEST_Y);
@@ -121,35 +91,34 @@ const Page page_sausage_entry = {
     .idle_timeout_ms = PAGE_IDLE_TIMEOUT_DEFAULT,
 };
 
-static const char* const RULE_TIPS[] = {
-    "每吃两根骨头，身体长一节",
-    "撞墙、石头或自己就结束",
-    "越吃越快，石头越来越多",
-    "5 / 10 / 15 骨头点亮星星",
-    "满三星后继续玩，挑战最高分",
-};
-
-#define RULE_N (sizeof(RULE_TIPS) / sizeof(RULE_TIPS[0]))
-
 static void help_create(lv_obj_t* scr, void* arg) {
     (void)arg;
     sausage_ui_screen(scr, true);
     lv_obj_t* title = label(scr, &font_ui_24, SAUSAGE_UI_TEXT, "玩法说明");
-    lv_obj_align(title, LV_ALIGN_TOP_MID, 0, UI_SAFE_EDGE);
-
-    place(snake_icon_create(scr, &s_turn_buf, &snake_turn_right, ICON_SCALE), HELP_X, 68);
-    lv_obj_t* turn = label(scr, &font_ui_12, SAUSAGE_UI_TEXT, "每按一次 B，向右转90°");
-    lv_obj_set_pos(turn, HELP_TEXT_X, 71);
+    lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 12);
+    lv_obj_t* key = sausage_ui_keycap(scr, 'B');
+    lv_obj_set_pos(key, 48, 57);
+    lv_obj_t* doe = sausage_ui_doe(scr, 2);
+    lv_obj_set_pos(doe, 87, 53);
+    lv_obj_t* turn = label(scr, &font_ui_12, SAUSAGE_UI_GOLD, "每按一次，右转90°");
+    lv_obj_align(turn, LV_ALIGN_TOP_MID, 0, 88);
     lv_obj_t* line = ui_box_create(scr);
-    lv_obj_set_size(line, UI_CONTENT_W - 2 * (HELP_X - UI_SAFE_EDGE), 2);
-    lv_obj_set_pos(line, HELP_X, 114);
+    lv_obj_set_size(line, 192, 1);
+    lv_obj_set_pos(line, 24, 116);
     lv_obj_set_style_bg_color(line, lv_color_hex(SAUSAGE_UI_EDGE), 0);
     lv_obj_set_style_bg_opa(line, LV_OPA_COVER, 0);
-    for (uint8_t i = 0; i < RULE_N; i++) {
-        lv_obj_t* l = label(scr, &font_ui_12, SAUSAGE_UI_DIM, RULE_TIPS[i]);
-        lv_obj_set_pos(l, HELP_X, 120 + i * 16);
+    static const char* const rules[] = {
+        "每2根骨头，身体长1格",
+        "撞墙、障碍或自己就结束",
+        "越吃越快，障碍逐步增加",
+        "5 / 10 / 15 根点亮星星",
+    };
+    for (uint8_t i = 0; i < 4; i++) {
+        uint32_t color = i == 3 ? SAUSAGE_UI_GOLD : i == 2 ? SAUSAGE_UI_DIM : SAUSAGE_UI_TEXT;
+        lv_obj_t* l = label(scr, &font_ui_12, color, rules[i]);
+        lv_obj_align(l, LV_ALIGN_TOP_MID, 0, 127 + i * 21);
     }
-    hint_bar(scr, "B 开始游戏  C 返回");
+    hint_bar(scr, "B 开始  C 返回");
 }
 
 static bool help_on_input(const InputEvent* e) {
