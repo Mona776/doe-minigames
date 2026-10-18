@@ -10,9 +10,9 @@
 - 只看 Sausage Snake 无尽版：直接打开 [无尽版交付目录](handoff/sausage-snake/)。其中包含游戏代码、UI、依赖参考和 PRD，不含模拟器；可自行评估哪些代码能用于主项目。
 - 想了解无尽版的依赖和接口：阅读 [接入说明](docs/SAUSAGE_INTEGRATION.md)，或从 [Release 下载交付包](https://github.com/Mona776/doe-minigames/releases/tag/sausage-snake-v1.2-handoff)。
 - 想了解代码边界：阅读 [目录与依赖](docs/PROJECT_GUIDE.md)。
-- 最新无尽版产品需求：[PRD V1.3](设计交付/SausageSnake-无尽版PRD/SausageSnake_无尽版_PRD_V1.3.md)，与[飞书当前文档](https://vcnz89wpi7j4.feishu.cn/wiki/JKSCwKYQEikpt3kNUgScSt84ndh)同步。旧版本与效果稿仅供历史参考。
+- 最新无尽版产品需求：[PRD V1.4](设计交付/SausageSnake-无尽版PRD/SausageSnake_无尽版_PRD_V1.4.md)，与[飞书当前文档](https://vcnz89wpi7j4.feishu.cn/wiki/JKSCwKYQEikpt3kNUgScSt84ndh)同步。旧版本与效果稿仅供历史参考。
 
-V1.2 Release 保留为当时的交付快照；主分支及 `handoff/sausage-snake/PRD.md` 已更新为 V1.3 文档，游戏规则和源码不变。
+V1.2 Release 保留为当时的交付快照；主分支及 `handoff/sausage-snake/PRD.md` 已更新为 V1.4 文档，游戏规则和源码不变。
 
 ## 目录里都是什么
 
