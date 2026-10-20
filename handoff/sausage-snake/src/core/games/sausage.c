@@ -210,8 +210,9 @@ uint8_t sausage_segment(const SausageGame* g, uint8_t i) {
 }
 
 bool sausage_turn(SausageGame* g) {
-    if (g->phase != SAUSAGE_PHASE_RUN) return false;
-    g->next_dir = (SausageDir)((g->next_dir + 1) % 4);
+    // next_dir 不同于 dir 表示本节拍已经锁定右转；移动完成后两者重新一致。
+    if (g->phase != SAUSAGE_PHASE_RUN || g->next_dir != g->dir) return false;
+    g->next_dir = (SausageDir)((g->dir + 1) % 4);
     return true;
 }
 

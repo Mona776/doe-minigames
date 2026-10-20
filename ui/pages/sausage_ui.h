@@ -4,6 +4,10 @@
 
 #include "ui/ui_theme.h"
 
+/* 俐方体11号：无尽版专用，保留其他小游戏原有字体。 */
+LV_FONT_DECLARE(font_sausage_12)
+LV_FONT_DECLARE(font_sausage_24)
+
 #define SAUSAGE_UI_BG    0x081923
 #define SAUSAGE_UI_CELL_A 0x0D2633
 #define SAUSAGE_UI_CELL_B 0x123241

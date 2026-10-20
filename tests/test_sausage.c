@@ -199,13 +199,13 @@ static int path_to_bone(const SausageGame* g, uint8_t from) {
     return SAUSAGE_CELLS;
 }
 
-// 每拍在直走、右转（按 1 次）、左转（按 3 次）里挑：不撞、走过去空间够大、离骨头最近（按绕路后的步数算）
+// 每拍只在直行和右转中挑选：只能使用实际玩家可执行的操作。
 static int choose_presses(const SausageGame* g) {
-    static const int PRESSES[] = {0, 1, 3};
+    static const int PRESSES[] = {0, 1};
     uint8_t head = head_of(g);
     uint8_t tail = sausage_segment(g, g->len - 1);
     int best = 0, best_score = -100000;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
         SausageDir dir = (SausageDir)((g->dir + PRESSES[i]) % 4);
         int n = step_cell(head, dir);
         if (n < 0 || g->blocked[n] || (g->occupied[n] && !(n == tail && n != g->bone))) continue;
@@ -213,7 +213,6 @@ static int choose_presses(const SausageGame* g) {
         int score = -path_to_bone(g, (uint8_t)n) * 4;
         if (room < g->len) score -= 1000;
         score += room / 10;
-        if (PRESSES[i] == 3) score -= 1;
         if (score > best_score) {
             best_score = score;
             best = PRESSES[i];
@@ -271,35 +270,36 @@ static void test_start(void) {
 }
 
 static void test_turns_and_crash(void) {
-    printf("每次按下右转与正常碰撞\n");
+    printf("每拍一次右转与正常碰撞\n");
     SausageGame g;
     sausage_init(&g, 2);
     to_run(&g);
     park_bone(&g, 0, 9);
     sausage_step(&g, sausage_step_ms(1) - 1);
     uint32_t elapsed = g.elapsed_ms, phase_ms = g.phase_ms;
-    bool cycle_ok = true;
-    for (int i = 1; i <= 260; i++) {
-        if (!sausage_turn(&g) || sausage_next_dir(&g) != (SausageDir)((SAUSAGE_RIGHT + i) % 4))
-            cycle_ok = false;
-    }
-    CHECK(cycle_ok, "每次按下独立右转，超过四次和255次也不限制、不溢出");
+    CHECK(sausage_turn(&g), "本节拍首次按下锁定右转");
+    bool ignored = true;
+    for (int i = 0; i < 260; i++) if (sausage_turn(&g)) ignored = false;
+    CHECK(ignored && sausage_next_dir(&g) == SAUSAGE_DOWN, "同节拍高速连按不累计、不取消右转");
     CHECK(g.dir == SAUSAGE_RIGHT && g.moves == 0 && head_of(&g) == cell(5, 4) &&
-          g.elapsed_ms == elapsed && g.phase_ms == phase_ms, "按键只改所选方向，不移动、不改变计时和实际朝向");
-    press(&g, 3);
-    CHECK(sausage_next_dir(&g) == SAUSAGE_UP, "当前所选方向立即反映所有按下");
+          g.elapsed_ms == elapsed && g.phase_ms == phase_ms, "锁定方向不提前转身、不移动、不重置计时");
     sausage_step(&g, 1);
-    CHECK(g.dir == SAUSAGE_UP && g.next_dir == SAUSAGE_UP && head_of(&g) == cell(5, 3),
-          "到原定移动时间按当时方向移动，按键不会延后移动");
+    CHECK(g.dir == SAUSAGE_DOWN && g.next_dir == SAUSAGE_DOWN && head_of(&g) == cell(5, 5),
+          "原定节拍到达时右转并前进");
+    CHECK(sausage_turn(&g) && !sausage_turn(&g), "移动完成后重新接受一次右转");
+    tick(&g);
+    CHECK(g.dir == SAUSAGE_LEFT && head_of(&g) == cell(4, 5), "连续两拍右转须经过两个格子");
+    tick(&g);
+    CHECK(g.dir == SAUSAGE_LEFT && head_of(&g) == cell(3, 5), "未按键的下一拍直行，没有多余输入排队");
 
     sausage_init(&g, 2);
     to_run(&g);
     park_bone(&g, 0, 9);
     press(&g, 2);
-    CHECK(g.next_dir == SAUSAGE_LEFT && g.phase == SAUSAGE_PHASE_RUN && g.moves == 0,
-          "反向选择不忽略，也不在按键时提前判死");
+    CHECK(g.next_dir == SAUSAGE_DOWN && g.phase == SAUSAGE_PHASE_RUN && g.moves == 0,
+          "同一拍按两次仍只锁定一次右转");
     tick(&g);
-    CHECK(g.end == SAUSAGE_END_SELF, "移动进入脖子按普通自撞结束");
+    CHECK(g.end == SAUSAGE_END_NONE && g.dir == SAUSAGE_DOWN, "连按不能原地掉头撞进脖子");
 
     sausage_init(&g, 2);
     to_run(&g);
@@ -571,7 +571,7 @@ static void simulate(const char* name, int fail_pct) {
         while (g.phase != SAUSAGE_PHASE_OVER && g.moves < 5000) {
             to_run(&g);
             int n = choose_presses(&g);
-            if (n == 3 && rand() % 100 < fail_pct) n = 2;
+            if (n == 1 && rand() % 100 < fail_pct) n = 0;
             press(&g, n);
             tick(&g);
         }
@@ -597,9 +597,9 @@ static void simulate(const char* name, int fail_pct) {
 
 static void test_simulation(void) {
     printf("机器人各打 %d 局（时长含倒计时）\n", GAMES);
-    simulate("左转从不按漏", 0);
-    simulate("左转 10% 按漏", 10);
-    simulate("左转 25% 按漏", 25);
+    simulate("右转从不按漏", 0);
+    simulate("右转 10% 按漏", 10);
+    simulate("右转 25% 按漏", 25);
 }
 
 int main(void) {

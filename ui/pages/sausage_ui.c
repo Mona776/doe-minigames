@@ -121,7 +121,7 @@ lv_obj_t* sausage_ui_keys(lv_obj_t* parent, const char* text) {
         lv_obj_set_style_pad_column(group, 3, 0);
         sausage_ui_keycap(group, key[0]);
         lv_obj_t* action = lv_label_create(group);
-        lv_obj_set_style_text_font(action, &font_ui_12, 0);
+        lv_obj_set_style_text_font(action, &font_sausage_12, 0);
         lv_obj_set_style_text_color(action, lv_color_hex(SAUSAGE_UI_TEXT), 0);
         char action_text[64];
         size_t n = (size_t)(end - next);

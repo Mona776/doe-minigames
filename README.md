@@ -8,13 +8,13 @@
 
 - 想体验：按下面步骤启动 Mac 模拟器。
 - 只看 Sausage Snake 无尽版：直接打开 [无尽版交付目录](handoff/sausage-snake/)。其中包含游戏代码、UI、依赖参考和 PRD，不含模拟器；可自行评估哪些代码能用于主项目。
-- 想了解无尽版的依赖和接口：阅读 [接入说明](docs/SAUSAGE_INTEGRATION.md)，或从 [Release 下载交付包](https://github.com/Mona776/doe-minigames/releases/tag/sausage-snake-v1.3-ui-handoff)。
+- 想了解无尽版的依赖和接口：阅读 [接入说明](docs/SAUSAGE_INTEGRATION.md)，或从 [Release 下载交付包](https://github.com/Mona776/doe-minigames/releases/tag/sausage-snake-v1.4-beat-handoff)。
 - 想了解代码边界：阅读 [目录与依赖](docs/PROJECT_GUIDE.md)。
-- 无尽版产品需求：[PRD V1.4](设计交付/SausageSnake-无尽版PRD/SausageSnake_无尽版_PRD_V1.4.md)；[飞书当前文档](https://vcnz89wpi7j4.feishu.cn/wiki/JKSCwKYQEikpt3kNUgScSt84ndh)（插图已更新）。旧版本与效果稿仅供历史参考。
+- 无尽版产品需求：[2026-10-20 有效正文快照](设计交付/SausageSnake-无尽版PRD/SausageSnake_无尽版_PRD_20261020.md)；[飞书当前文档](https://vcnz89wpi7j4.feishu.cn/wiki/JKSCwKYQEikpt3kNUgScSt84ndh)保留修订痕迹、视频和配图。旧版本与效果稿仅供历史参考。
 
-当前交付版本为 **V1.3 UI修订（2026-10-19）**：彩色实机按键、结算选择菜单、去除局内箭头、即时转向反馈及页面布局调整。游戏素材保持原样；原 V1.2 Release 保留为历史快照。
+当前交付版本为 **V1.4 节拍转向（2026-10-20）**：每个移动节拍最多锁定一次右转，实际移动时狗头与前脚一起转向；长按不跨拍重复。包含统一暂停菜单、结果页返回和俐方体11号字体。速度、成长、障碍与奖励配置保持原样，角色、骨头、障碍和地块素材未替换。
 
-包内 PRD 文本版本仍为 V1.4，其结算按键及旧字母提示以[最新接入说明](docs/SAUSAGE_INTEGRATION.md#2026-10-19-ui修订)为准。查看[最新界面图和模拟器实测](设计交付/SausageSnake-无尽版UI/当前UI-20261019/)。
+空闲策略是待程序确认的接入事项，当前原型说明页仍为10秒超时。原 V1.2、V1.3 Release 保留为历史快照，以本次交付和飞书当前有效正文为准。
 
 ## 目录里都是什么
 

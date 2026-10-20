@@ -48,21 +48,21 @@ static void update_focus(void) {
 // arg 为空时选中开始游戏，否则指向要选中的选项
 static void entry_create(lv_obj_t* scr, void* arg) {
     sausage_ui_screen(scr, true);
-    lv_obj_t* title = label(scr, &font_ui_24, SAUSAGE_UI_GOLD, "SAUSAGE");
+    lv_obj_t* title = label(scr, &font_sausage_24, SAUSAGE_UI_GOLD, "SAUSAGE");
     lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 36);
-    title = label(scr, &font_ui_24, SAUSAGE_UI_TEXT, "SNAKE");
+    title = label(scr, &font_sausage_24, SAUSAGE_UI_TEXT, "SNAKE");
     lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 60);
-    title = label(scr, &font_ui_12, SAUSAGE_UI_DIM, "ENDLESS");
+    title = label(scr, &font_sausage_12, SAUSAGE_UI_DIM, "ENDLESS");
     lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 84);
     lv_obj_t* doe = sausage_ui_doe(scr, 2);
     lv_obj_align(doe, LV_ALIGN_TOP_MID, 0, DOE_Y);
     lv_obj_t* bone = snake_icon_create(scr, &s_title_bone_buf, &snake_icon_bone, 1);
     lv_obj_align(bone, LV_ALIGN_TOP_MID, 0, 12);
-    lv_obj_t* best = label(scr, &font_ui_12, SAUSAGE_UI_DIM, "");
+    lv_obj_t* best = label(scr, &font_sausage_12, SAUSAGE_UI_DIM, "");
     lv_label_set_text_fmt(best, "最高纪录 %u", (unsigned)ui_records_best(GAME_SAUSAGE));
     lv_obj_align(best, LV_ALIGN_TOP_MID, 0, BEST_Y);
     for (uint8_t i = 0; i < OPTION_COUNT; i++) {
-        s_options[i] = sausage_ui_option(scr, OPTION_TEXT[i], &font_ui_12, OPTION_W, OPTION_H);
+        s_options[i] = sausage_ui_option(scr, OPTION_TEXT[i], &font_sausage_12, OPTION_W, OPTION_H);
         lv_obj_align(s_options[i], LV_ALIGN_TOP_MID, 0, OPTION_Y0 + i * OPTION_STEP);
     }
     hint_bar(scr, "A 切换  B 确定  C 返回");
@@ -94,13 +94,13 @@ const Page page_sausage_entry = {
 static void help_create(lv_obj_t* scr, void* arg) {
     (void)arg;
     sausage_ui_screen(scr, true);
-    lv_obj_t* title = label(scr, &font_ui_24, SAUSAGE_UI_TEXT, "玩法说明");
+    lv_obj_t* title = label(scr, &font_sausage_24, SAUSAGE_UI_TEXT, "玩法说明");
     lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 12);
     lv_obj_t* key = sausage_ui_keycap(scr, 'B');
     lv_obj_set_pos(key, 48, 57);
     lv_obj_t* doe = sausage_ui_doe(scr, 2);
     lv_obj_set_pos(doe, 87, 53);
-    lv_obj_t* turn = label(scr, &font_ui_12, SAUSAGE_UI_GOLD, "每按一次，右转90°");
+    lv_obj_t* turn = label(scr, &font_sausage_12, SAUSAGE_UI_GOLD, "按确认键，下一步右转");
     lv_obj_align(turn, LV_ALIGN_TOP_MID, 0, 88);
     lv_obj_t* line = ui_box_create(scr);
     lv_obj_set_size(line, 192, 1);
@@ -115,7 +115,7 @@ static void help_create(lv_obj_t* scr, void* arg) {
     };
     for (uint8_t i = 0; i < 4; i++) {
         uint32_t color = i == 3 ? SAUSAGE_UI_GOLD : i == 2 ? SAUSAGE_UI_DIM : SAUSAGE_UI_TEXT;
-        lv_obj_t* l = label(scr, &font_ui_12, color, rules[i]);
+        lv_obj_t* l = label(scr, &font_sausage_12, color, rules[i]);
         lv_obj_align(l, LV_ALIGN_TOP_MID, 0, 127 + i * 21);
     }
     hint_bar(scr, "B 开始  C 返回");

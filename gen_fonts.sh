@@ -32,6 +32,23 @@ print("".join(sorted(chars)), end="")
 EOF
 )"
 
+# 无尽版独立字库；不替换其他小游戏的共用字库。
+SAUSAGE_FONT="tools/fonts/Cubic_11.ttf"
+SAUSAGE_STAMP="$OUT/font_sausage_stamp.txt"
+SAUSAGE_HASH="$(shasum -a 256 "$SAUSAGE_FONT" | cut -d ' ' -f 1)"
+SAUSAGE_KEY="$SAUSAGE_HASH:$CHARS"
+mkdir -p "$OUT"
+if [ "$1" == "--force" ] || [ ! -f "$SAUSAGE_STAMP" ] || [ "$(cat "$SAUSAGE_STAMP")" != "$SAUSAGE_KEY" ] \
+    || [ ! -f "$OUT/font_sausage_12.c" ] || [ ! -f "$OUT/font_sausage_24.c" ]; then
+    for SIZE in 12 24; do
+        "$CONV" --font "$SAUSAGE_FONT" --size "$SIZE" --bpp 1 --format lvgl --no-compress \
+            -r 0x20-0x7E --lv-font-name "font_sausage_$SIZE" -o "$OUT/font_sausage_$SIZE.c" \
+            ${CHARS:+--symbols "$CHARS"} > /dev/null
+    done
+    printf '%s' "$SAUSAGE_KEY" > "$SAUSAGE_STAMP"
+    echo "无尽版俐方体字库已生成"
+fi
+
 if [ "$1" != "--force" ] && [ -f "$STAMP" ] && [ "$(cat "$STAMP")" == "$CHARS" ] \
     && [ -f "$OUT/font_ui_12.c" ] && [ -f "$OUT/font_ui_24.c" ]; then
     exit 0

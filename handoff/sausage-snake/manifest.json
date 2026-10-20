@@ -1,49 +1,49 @@
 {
   "name": "Sausage Snake",
-  "version": "V1.3",
+  "version": "V1.4-beat",
   "scope": "rules + UI source and shared references; host integration required",
   "files": [
     {
       "path": "src/core/games/sausage.c",
       "role": "game",
-      "sha256": "d252fbe6a9f5da4bff5b428a73af24a7d2e9cd5dbb16fc5f08cd02c69c54d222",
-      "bytes": 10286
+      "sha256": "26314e0006a3a93fdcdda88ca2285ac6ea0f29c4f8120a9532158f84f98321ca",
+      "bytes": 10409
     },
     {
       "path": "src/core/games/sausage.h",
       "role": "game",
-      "sha256": "247547fc6215edf8d73e693be26a78bca6f75c2b3e554345c010c0480b81bdf9",
-      "bytes": 6332
+      "sha256": "a858c110836aecac5d3c2d0656f060c0e7f8c7edda4c0fede0c9d6a297c0e48b",
+      "bytes": 6380
     },
     {
       "path": "src/ui/pages/page_sausage.c",
       "role": "game",
-      "sha256": "aafa11555d2225203354c8fc38603ce3ea9045067e87bde3e68d4af82b7a1e57",
-      "bytes": 45246
+      "sha256": "fac907483fbbfa57b93bd0c729f78da268c761ad7d3f67dd06c2eb087c81cd2b",
+      "bytes": 45370
     },
     {
       "path": "src/ui/pages/page_sausage_entry.c",
       "role": "game",
-      "sha256": "f7b21925b4ebfd1a69038aee501ea17ad20c525e055fcfc1e66fb72938fa41b1",
-      "bytes": 5349
+      "sha256": "6de8a9625ada7f1c59436ad9635f88f8e574199997e6a5f5eddc185819ad03e6",
+      "bytes": 5394
     },
     {
       "path": "src/ui/pages/sausage_ui.c",
       "role": "game",
-      "sha256": "e2fcb09c8af3c552c1a49a0b735afe7bcd2630e1adf824312b1852a281c30bc4",
-      "bytes": 6122
+      "sha256": "105b02054b83dd96742b004ddafd38bd98dc11b44c03c476f5f0dfcc4cd27d29",
+      "bytes": 6127
     },
     {
       "path": "src/ui/pages/sausage_ui.h",
       "role": "game",
-      "sha256": "7607fc36ac0e890952fc39238b065395ac4e0a4f729ad8529ad2fa70ed46e9b8",
-      "bytes": 1001
+      "sha256": "ea1da6ab580219c2dcb91072bba415b8ac04974876856d91d934299dae20400e",
+      "bytes": 1146
     },
     {
       "path": "src/tests/test_sausage.c",
       "role": "game",
-      "sha256": "1af381c5cef67aff7f243e95059b49668248d0069de1cc38c435b07e067d0089",
-      "bytes": 24811
+      "sha256": "b471177121bffdfcb418ac20b65e14ce9d4cd6b0872fe86b58863697dc83162c",
+      "bytes": 24891
     },
     {
       "path": "src/ui/pages/snake_art.c",
@@ -198,20 +198,20 @@
     {
       "path": "src/assets/generated/font_ui_12.c",
       "role": "shared-reference",
-      "sha256": "efc81531a9aa64f1d0fc1c7c0f5179cdbfde87e27ec03d27b41851fc6c6ef5b7",
-      "bytes": 60743
+      "sha256": "e16a22c6c461021a662711902cb898d816579458600eb54e3c6af15f9f4de737",
+      "bytes": 61052
     },
     {
       "path": "src/assets/generated/font_ui_24.c",
       "role": "shared-reference",
-      "sha256": "38a7d7564abf79905721b244b54249114c0e8d258d97221968bd7b106a6c6858",
-      "bytes": 116661
+      "sha256": "6a6e2d585c3675c48d3cb3085abaea71b058a299db6455beafa7aff9d905923b",
+      "bytes": 117444
     },
     {
       "path": "src/assets/generated/font_chars.txt",
       "role": "shared-reference",
-      "sha256": "8f980f009f5e1edc1d26a6581175ea167c1b4fe6b8d2480e4893c0a8370729fa",
-      "bytes": 539
+      "sha256": "8fb7aee38f5e7ae287ff9dab0fa323831a04ddda0f7d52917e7ef0a9837c0006",
+      "bytes": 543
     },
     {
       "path": "src/ui/asset.c",
@@ -224,8 +224,81 @@
       "role": "shared-reference",
       "sha256": "3c39502f4993099f38cac20e6a5de5b6f3148b9fe1b0663e56510cbbe4686868",
       "bytes": 353
+    },
+    {
+      "path": "src/tests/test_sausage_controls.c",
+      "role": "game",
+      "sha256": "7ee65f0ab125254dd9c34d8de074e73e60beffa6136ac50e6273718241ef5570",
+      "bytes": 7952
+    },
+    {
+      "path": "src/tests/run_sausage_controls.py",
+      "role": "game",
+      "sha256": "f3b8e8c5cb3dea8ba1a3af7f7781f69afe4ea8e251b8717e550af6e1bd728aa5",
+      "bytes": 1328
+    },
+    {
+      "path": "src/gen_fonts.sh",
+      "role": "shared-reference",
+      "sha256": "80f6c1113da1ff22a99b6c1f56cad2cb0a745cf1ea170352462ad3d97ff431f5",
+      "bytes": 2427
+    },
+    {
+      "path": "src/tools/fonts/Cubic_11.ttf",
+      "role": "shared-reference",
+      "sha256": "d138058e92a23b184d39da097f9270365af762a5cc47713265d7067309a5c8c0",
+      "bytes": 2759792
+    },
+    {
+      "path": "src/tools/fonts/Cubic_11-LICENSE.txt",
+      "role": "shared-reference",
+      "sha256": "da723fbd5ef2691ba9ebb55c6145900174d622db7173c0760a4b95ec128636d9",
+      "bytes": 1075
+    },
+    {
+      "path": "src/assets/generated/font_sausage_stamp.txt",
+      "role": "shared-reference",
+      "sha256": "47b06a98b42e36f8717a1a21b3bf1d5c3457e27f2ac73409ea765a69eab64cc4",
+      "bytes": 608
+    },
+    {
+      "path": "src/assets/generated/font_sausage_12.c",
+      "role": "shared-reference",
+      "sha256": "2e4fe69cff94dce1d4ed3b0e21e8effa3de74dd7c0d35d6dd42f95710f3a7699",
+      "bytes": 62038
+    },
+    {
+      "path": "src/assets/generated/font_sausage_24.c",
+      "role": "shared-reference",
+      "sha256": "b8df36100833dff18d7512d2e091282e42af197c7cee72e8a184b365dbfa08a3",
+      "bytes": 118795
+    },
+    {
+      "path": "src/tools/fonts/fusion-pixel-12px-proportional-zh_hans.ttf",
+      "role": "shared-reference",
+      "sha256": "b2ee68647dc257fa697e4d0c78f9b59461bc504a023b9a3b5ad66f358bbb1613",
+      "bytes": 7053672
+    },
+    {
+      "path": "src/tools/fonts/fusion-pixel-OFL.txt",
+      "role": "shared-reference",
+      "sha256": "bc518cf64b8032c07690f33cc270c35c179255a6ac8efa7c165ebae7e8f76a63",
+      "bytes": 4418
+    },
+    {
+      "path": "src/tools/package.json",
+      "role": "shared-reference",
+      "sha256": "e974297a3414825cd3f8e594fb40ceb4cbe725b0ff7249406125feeb745ec690",
+      "bytes": 295
+    },
+    {
+      "path": "src/tools/package-lock.json",
+      "role": "shared-reference",
+      "sha256": "d1b80dcac1e1ddfec190a194cae735b39798272261fa6f0a86de79c7d690c6c6",
+      "bytes": 3029
     }
   ],
   "prd_version": "V1.4",
-  "ui_revision": "2026-10-19"
+  "ui_revision": "2026-10-19",
+  "updated": "2026-10-20"
 }
