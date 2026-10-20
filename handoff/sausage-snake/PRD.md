@@ -332,7 +332,7 @@ V1.4  |  2026年10月18日  |  产品 程序 美术 音频 UI 测试
 
 - [原型源码与 Mac 模拟器运行说明](https://github.com/Mona776/doe-minigames#readme)
 
-- [原型工程下载（含模拟器源码）](https://github.com/Mona776/doe-minigames/releases/tag/sausage-snake-v1.3-ui-handoff)
+- [原型工程下载（含模拟器源码）](https://github.com/Mona776/doe-minigames/releases/tag/sausage-snake-v1.4-beat-handoff)
 
 - [UI 设计稿（Pixso）](https://pixso.cn/app/design/rOoE_8K4uh0UTQReGuZukw?page-id=10%3A1&item-id=10%3A2)
 
@@ -391,4 +391,4 @@ V1.4  |  2026年10月18日  |  产品 程序 美术 音频 UI 测试
 ## 附录：原型工程
 
 [GitHub - Mona776/doe-minigames: Doe 小游戏原型、Mac/FreeRTOS 模拟器、Pico 适配与 Sausage Snake 交付包](https://github.com/Mona776/doe-minigames) ⬅️完整项目，包含模拟器和各小游戏代码，可以查看整体实现。
-[Release Doe 小游戏工程与 Sausage Snake V1.3 UI修订交付包 · Mona776/doe-minigames](https://github.com/Mona776/doe-minigames/releases/tag/sausage-snake-v1.3-ui-handoff) ⬅️提供完整工程和单独整理的 Sausage Snake 模块，附接入说明，方便下载和评估复用。
+[Release Doe 小游戏工程与 Sausage Snake ](https://github.com/Mona776/doe-minigames/releases/tag/sausage-snake-v1.4-beat-handoff)[V1.4 节拍转向交付包 · Mona776/doe-minigames](https://github.com/Mona776/doe-minigames/releases/tag/sausage-snake-v1.4-beat-handoff) ⬅️提供完整工程和单独整理的 Sausage Snake 模块，附接入说明，方便下载和评估复用。
